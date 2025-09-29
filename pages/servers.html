@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Servers</title>
+  <link href="https://fonts.googleapis.com/css2?family=PT+Sans:wght@400;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: { 'vime-dark': '#1a1a1a', 'vime-accent': '#00a8ff', 'vime-hover': '#0088cc' },
+          fontFamily: { 'sans': ['PT Sans', 'sans-serif'] }
+        }
+      }
+    };
+  </script>
+  <style>
+    body { background: vime-dark; color: rgb(5, 5, 5); padding: 20px; }
+  </style>
+</head>
+<body class="font-sans">
+  <h2 class="text-xl font-bold mb-4 text-vime-accent text-center">Servers</h2>
+  <ul class="list-disc pl-5">
+    <li>MiniGames - 1200 players</li>
+    <li>Survival - 800 players</li>
+    <li>Creative - 300 players</li>
+    <li>SkyBlock - 450 players</li>
+    <li>Prison - 500 players</li>
+    <li>OneBlock - 200 players</li>
+    <li>HiTech - 150 players</li>
+    <li>Vanilla - 100 players</li>
+    <li>Factions - 350 players</li>
+    <li>Hardcore - 50 players</li>
+  </ul>
+  <button onclick="window.location.href='main.html'" class="w-full bg-gray-600 hover:bg-gray-500 text-white p-2 rounded mt-4">Back</button>
+</body>
+</html>

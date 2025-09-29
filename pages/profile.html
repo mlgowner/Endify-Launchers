@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Endify Launcher - Profile</title>
+  <link href="https://fonts.googleapis.com/css2?family=PT+Sans:wght@400;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: { 'vime-dark': '#1a1a1a', 'vime-accent': '#00a8ff', 'vime-hover': '#0088cc' },
+          fontFamily: { 'sans': ['PT Sans', 'sans-serif'] }
+        }
+      }
+    };
+  </script>
+  <style>
+    body { user-select: none; -webkit-user-drag: none; overflow: hidden; background: vime-dark; }
+    .no-drag { -webkit-app-region: no-drag; }
+    .profile-container {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+    }
+    .background-image {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-position: center;
+      opacity: 0.5;
+      z-index: 0;
+    }
+    .profile-content {
+      position: relative;
+      z-index: 1;
+      padding: 20px;
+    }
+  </style>
+</head>
+<body class="text-white min-h-screen flex items-center justify-center font-sans">
+  <div class="profile-container">
+    <div id="background-image" class="background-image"></div>
+    <div class="profile-content bg-gray-800 p-6 rounded-lg shadow-lg w-full max-w-4xl h-full transform transition-all duration-300 hover:shadow-xl">
+      <h2 class="text-xl font-bold mb-4 text-center text-vime-accent">Profile</h2>
+      <div class="flex mb-4 h-full">
+        <div class="w-1/3 p-4 bg-gray-700 rounded shadow">
+          <img src="../assets/REF/skin.png" alt="Skin" class="w-full h-auto rounded">
+        </div>
+        <div class="w-2/3 p-4 bg-gray-700 rounded shadow ml-4 h-full">
+          <p class="text-vime-accent">Username: <span class="text-white" id="profile-username"></span></p>
+          <p class="text-vime-accent">Time on Servers: <span class="text-white">150h</span></p>
+          <p class="text-vime-accent">Favorite Server: <span class="text-white">MiniGames</span></p>
+          <p class="text-vime-accent">Kills: <span class="text-white">750</span></p>
+          <p class="text-vime-accent">Level: <span class="text-white">25</span></p>
+          <p class="text-vime-accent">Friends: <span class="text-white">12</span></p>
+          <p class="text-vime-accent">Wins: <span class="text-white">300</span></p>
+          <p class="text-vime-accent">Deaths: <span class="text-white">150</span></p>
+          <p class="text-vime-accent">Coins: <span class="text-white">5000</span></p>
+          <p class="text-vime-accent">Achievements: <span class="text-white">15</span></p>
+        </div>
+      </div>
+      <input type="file" id="background-upload" accept="image/*" class="mb-2" onchange="previewBackground(event)">
+      <button id="back-btn" class="w-full bg-gray-600 hover:bg-gray-500 text-white p-2 rounded mt-auto transition duration-300 shadow-md hover:shadow-lg">Back</button>
+    </div>
+  </div>
+  <script>
+    function previewBackground(event) {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          document.getElementById('background-image').style.backgroundImage = `url(${e.target.result})`;
+        };
+        reader.readAsDataURL(file);
+      }
+    }
+    document.getElementById('back-btn')?.addEventListener('click', () => {
+      window.location.href = 'main.html';
+    });
+
+    window.addEventListener('load', async () => {
+      const profile = await window.api.fetchProfile();
+      if (profile.username) {
+        document.getElementById('profile-username').textContent = profile.username || 'Guest';
+      }
+    });
+  </script>
+</body>
+</html>

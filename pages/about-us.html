@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us</title>
+  <link href="https://fonts.googleapis.com/css2?family=PT+Sans:wght@400;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: { 'vime-dark': '#1a1a1a', 'vime-accent': '#00a8ff', 'vime-hover': '#0088cc' },
+          fontFamily: { 'sans': ['PT Sans', 'sans-serif'] }
+        }
+      }
+    };
+  </script>
+  <style>
+    body { background: vime-dark; color: white; padding: 20px; }
+  </style>
+</head>
+<body class="font-sans">
+  <h2 class="text-xl font-bold mb-4 text-vime-accent text-center">About Us</h2>
+  <p class="text-white">Endify Launcher was born in 2023 when a group of passionate Minecraft enthusiasts decided to create a unique launcher combining the best features of VimeWorld and TLauncher. Our goal was to provide a seamless experience with a wide range of mods, servers, and modes, all wrapped in a sleek, user-friendly interface. Today, we continue to innovate and support the community!</p>
+  <button onclick="window.location.href='main.html'" class="w-full bg-gray-600 hover:bg-gray-500 text-white p-2 rounded mt-4">Back</button>
+</body>
+</html>

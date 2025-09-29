@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Endify Launcher</title>
+  <link href="https://fonts.googleapis.com/css2?family=PT+Sans:wght@400;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: { 'vime-dark': '#1a1a1a', 'vime-accent': '#00a8ff', 'vime-hover': '#0088cc' },
+          fontFamily: { 'sans': ['PT Sans', 'sans-serif'] }
+        }
+      }
+    };
+  </script>
+  <style>
+    body { user-select: none; -webkit-user-drag: none; overflow: hidden; background: url('../assets/REF/background.jpg') no-repeat center center fixed; background-size: cover; }
+    .no-drag { -webkit-app-region: no-drag; }
+    .profile-circle { width: 40px; height: 40px; border-radius: 50%; border: 2px solid white; cursor: pointer; overflow: hidden; }
+    .sidebar {
+      position: fixed;
+      top: 64px;
+      left: -250px;
+      width: 250px;
+      height: calc(100% - 64px);
+      background: vime-dark;
+      transition: left 0.3s ease;
+      overflow-y: auto;
+      padding: 10px;
+      box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+    }
+    .sidebar.open {
+      left: 0;
+    }
+    .category-block {
+      margin-bottom: 15px;
+      padding: 10px;
+      background: vime-accent;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    .category-block:hover {
+      background-color: vime-hover;
+    }
+    .category-content {
+      display: none;
+      margin-top: 10px;
+      background: vime-dark;
+      padding: 10px;
+      border-radius: 5px;
+    }
+    .category-content.open {
+      display: block;
+    }
+    .go-button {
+      margin-top: 10px;
+      width: 100%;
+      background: vime-accent;
+      color: white;
+      padding: 5px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    .go-button:hover {
+      background-color: vime-hover;
+    }
+    .catalog-button {
+      position: absolute;
+      bottom: 10px;
+      left: 10px;
+      width: 40px;
+      height: 40px;
+      border: 2px solid white;
+      cursor: pointer;
+      overflow: hidden;
+      background: white;
+      transition: background-color 0.3s;
+    }
+    .catalog-button:hover {
+      background-color: vime-hover;
+    }
+    .catalog-button img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+  </style>
+</head>
+<body class="text-white min-h-screen flex flex-col font-sans">
+  <header class="p-4 bg-gradient-to-r from-vime-dark to-gray-800 shadow-lg flex items-center justify-between">
+    <div class="flex items-center">
+      <img src="../assets/REF/icon.png" alt="Icon" class="w-8 h-8 mr-2">
+      <h1 class="text-2xl font-bold text-vime-accent">Endify Launcher</h1>
+    </div>
+    <div id="profile-circle" class="profile-circle">
+      <img src="../assets/REF/skin.png" alt="Profile Head" class="w-full h-full object-cover">
+    </div>
+  </header>
+  <main class="flex-1 p-6">
+    <section id="main-content" class="p-6">
+      <h2 class="text-xl font-bold mb-4 text-vime-accent">Minecraft News</h2>
+      <div class="bg-gray-800 p-4 rounded-lg shadow-lg mb-4">
+        <h3 class="text-lg text-vime-accent">New Update 1.21 Released!</h3>
+        <p class="text-white mt-2">On September 15, 2025, Minecraft 1.21 introduced exciting new features, including the Trial Chambers and new copper-based blocks. Explore the latest content now!</p>
+      </div>
+      <div class="bg-gray-800 p-4 rounded-lg shadow-lg mb-4">
+        <h3 class="text-lg text-vime-accent">Community Event: Build Competition</h3>
+        <p class="text-white mt-2">Join the global build competition starting October 1, 2025. Theme: "Futuristic Cities". Prizes include in-game currency and exclusive skins!</p>
+      </div>
+      <div class="bg-gray-800 p-4 rounded-lg shadow-lg">
+        <h3 class="text-lg text-vime-accent">New Modding API Preview</h3>
+        <p class="text-white mt-2">Mojang released a preview of the new Modding API on September 20, 2025, making mod development easier for creators. Check the official forums for details!</p>
+      </div>
+    </section>
+    <section id="login-content" class="p-6 flex items-center justify-center hidden">
+      <div class="bg-gray-800 p-6 rounded-lg shadow-lg w-96 transform transition-all duration-300 hover:shadow-xl">
+        <h2 class="text-xl font-bold mb-4 text-center text-vime-accent">Endify Launcher</h2>
+        <form id="login-form" class="mb-2">
+          <input id="username" placeholder="Username" class="bg-gray-700 p-2 rounded mb-2 w-full text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-vime-accent transition duration-200">
+          <input id="password" type="password" placeholder="Password" class="bg-gray-700 p-2 rounded mb-2 w-full text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-vime-accent transition duration-200">
+          <button type="submit" class="w-full bg-vime-accent hover:bg-vime-hover text-white p-2 rounded transition duration-300 shadow-md hover:shadow-lg">Login</button>
+        </form>
+        <button id="register-btn" class="w-full bg-gray-600 hover:bg-gray-500 text-white p-2 rounded transition duration-300 shadow-md hover:shadow-lg">Register</button>
+      </div>
+    </section>
+  </main>
+  <div id="catalog-button" class="catalog-button">
+    <img src="../assets/REF/catalog-icon.png" alt="Catalog" class="w-full h-full object-fit: contain;">
+  </div>
+  <div id="sidebar" class="sidebar">
+    <div class="category-block">
+      <h3 class="text-lg text-white mb-2 cursor-pointer" onclick="toggleContent('mods-content')">Mods</h3>
+      <div id="mods-content" class="category-content">
+        <ul class="list-disc pl-5 text-white">
+          <li>Enhanced Tools</li>
+          <li>Custom Biomes</li>
+          <li>Advanced Combat</li>
+          <li>Magic Spells</li>
+          <li>Economy System</li>
+          <li>Building Tools</li>
+          <li>Exploration</li>
+          <li>PvP Enhancer</li>
+          <li>Tech Mod</li>
+          <li>Adventure Pack</li>
+        </ul>
+        <button onclick="window.location.href='mods.html'" class="go-button">Go to Mods</button>
+      </div>
+    </div>
+    <div class="category-block">
+      <h3 class="text-lg text-white mb-2 cursor-pointer" onclick="toggleContent('servers-content')">Servers</h3>
+      <div id="servers-content" class="category-content">
+        <ul class="list-disc pl-5 text-white">
+          <li>MiniGames - 1200 players</li>
+          <li>Survival - 800 players</li>
+          <li>Creative - 300 players</li>
+          <li>SkyBlock - 450 players</li>
+          <li>Prison - 500 players</li>
+          <li>OneBlock - 200 players</li>
+          <li>HiTech - 150 players</li>
+          <li>Vanilla - 100 players</li>
+          <li>Factions - 350 players</li>
+          <li>Hardcore - 50 players</li>
+        </ul>
+        <button onclick="window.location.href='servers.html'" class="go-button">Go to Servers</button>
+      </div>
+    </div>
+    <div class="category-block">
+      <h3 class="text-lg text-white mb-2 cursor-pointer" onclick="toggleContent('modes-content')">Modes</h3>
+      <div id="modes-content" class="category-content">
+        <ul class="list-disc pl-5 text-white">
+          <li>PvP</li>
+          <li>PvE</li>
+          <li>RPG</li>
+          <li>Survival</li>
+          <li>Creative</li>
+        </ul>
+        <button onclick="window.location.href='modes.html'" class="go-button">Go to Modes</button>
+      </div>
+    </div>
+    <div class="category-block">
+      <h3 class="text-lg text-white mb-2 cursor-pointer" onclick="toggleContent('about-us-content')">About Us</h3>
+      <div id="about-us-content" class="category-content">
+        <p class="p-2 text-white">Endify Launcher was born in 2023 when a group of passionate Minecraft enthusiasts decided to create a unique launcher combining the best features of VimeWorld and TLauncher. Our goal was to provide a seamless experience with a wide range of mods, servers, and modes, all wrapped in a sleek, user-friendly interface. Today, we continue to innovate and support the community!</p>
+        <button onclick="window.location.href='about-us.html'" class="go-button">Go to About Us</button>
+      </div>
+    </div>
+    <div class="category-block">
+      <h3 class="text-lg text-white mb-2 cursor-pointer" onclick="toggleContent('contacts-content')">Contacts</h3>
+      <div id="contacts-content" class="category-content">
+        <ul class="list-disc pl-5 text-white">
+          <li>Email: endify@example.com</li>
+          <li>Telegram: @endify_support</li>
+          <li>Discord: endify#1234</li>
+        </ul>
+        <button onclick="window.location.href='contacts.html'" class="go-button">Go to Contacts</button>
+      </div>
+    </div>
+  </div>
+  <script>
+    function toggleContent(id) {
+      document.getElementById(id).classList.toggle('open');
+    }
+    document.getElementById('login-form')?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+      const result = await window.api.login({ username, password });
+      if (result.success) {
+        document.getElementById('login-content').classList.add('hidden');
+        document.getElementById('main-content').classList.remove('hidden');
+      } else {
+        alert('Login failed: ' + result.error);
+      }
+    });
+
+    document.getElementById('register-btn')?.addEventListener('click', async () => {
+      await window.api.openRegister();
+    });
+
+    document.getElementById('profile-circle')?.addEventListener('click', () => {
+      window.location.href = 'profile.html';
+    });
+
+    document.getElementById('back-btn')?.addEventListener('click', () => {
+      window.location.href = 'main.html';
+    });
+
+    document.getElementById('play-mod-1')?.addEventListener('click', async () => {
+      const profile = await window.api.fetchProfile();
+      if (profile.username) {
+        const result = await window.api.launchMc({ version: '1.20.1', username: profile.username, uuid: profile.uuid });
+        if (result.success) alert('Mod 1 launched!');
+      }
+    });
+
+    document.getElementById('play-mod-2')?.addEventListener('click', async () => {
+      const profile = await window.api.fetchProfile();
+      if (profile.username) {
+        const result = await window.api.launchMc({ version: '1.20.1', username: profile.username, uuid: profile.uuid });
+        if (result.success) alert('Mod 2 launched!');
+      }
+    });
+
+    window.addEventListener('load', async () => {
+      const profile = await window.api.fetchProfile();
+      if (profile.username) {
+        document.getElementById('login-content').classList.add('hidden');
+        document.getElementById('main-content').classList.remove('hidden');
+      } else {
+        document.getElementById('main-content').classList.add('hidden');
+        document.getElementById('login-content').classList.remove('hidden');
+      }
+      if (window.location.pathname.includes('profile.html')) {
+        document.getElementById('profile-username').textContent = profile.username || 'Guest';
+      }
+      document.getElementById('catalog-button').addEventListener('click', () => {
+        document.getElementById('sidebar').classList.toggle('open');
+      });
+    });
+  </script>
+</body>
+</html>
