@@ -1,0 +1,15 @@
+{
+  "name": "endify-launcher",
+  "version": "1.0.0",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "dependencies": {
+    "electron": "^31.0.0",
+    "axios": "^1.6.0",
+    "minecraft-auth": "^1.0.0"
+  },
+  "author": "denro",
+  "license": "MIT"
+}
